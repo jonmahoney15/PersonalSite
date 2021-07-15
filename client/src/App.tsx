@@ -21,7 +21,7 @@ function App() {
               I made this site to show some of my skills as well as a personal blog. 
           </p>
         </div>
-        <div className="flex items-center justify-evenly">
+        <div className="flex flex-col md:flex-row items-center justify-evenly">
           <Card icon={Coding} altText="Coding" description='Text Text'/>
           <Card icon={Quadcopter} altText="Quadcopter" description="I like me some quadcopters to do the flippy-floppys"/>
           <Card 
