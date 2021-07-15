@@ -1,7 +1,5 @@
 <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="90" height="90" fill="#E5E5E5"/>
 <g clip-path="url(#clip0)">
-<rect width="90" height="90" fill="white"/>
 <rect x="20" y="20.6746" width="3.78248" height="72.4807" rx="1.89124" transform="rotate(-45 20 20.6746)" fill="black"/>
 <rect x="22.6746" y="71.9262" width="3.78248" height="72.4807" rx="1.89124" transform="rotate(-135 22.6746 71.9262)" fill="black"/>
 <rect x="41" y="21" width="12" height="49" fill="black"/>
