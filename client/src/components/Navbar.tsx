@@ -1,9 +1,8 @@
-import RasPi from "../svg/raspberry-pi.svg";
-
+/*<img src={RasPi} alt="text" width="120"/>*/
 const Navbar = () => {
     return (
         <nav className="flex flex-wrap items-center justify-between p-5 bg-black">
-            <img src={RasPi} alt="text" width="120"/>
+            
             <div className="flex md:hidden">
                 <button id="hamburger">
                     <img className="toggle block" alt="" height="40" width="40"/>

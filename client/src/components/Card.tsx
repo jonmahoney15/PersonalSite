@@ -2,7 +2,7 @@ import React from "react";
 import '../styles/Card.css';
 
 interface CardProp {
-    icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+    icon: string;
     altText: string;
     description: string;
 }
@@ -10,8 +10,8 @@ interface CardProp {
 const Card = (props: CardProp) => {
   return (
       <div className="m-5" id="Card">
-          <div className="flex justify-center align-middle p-10 bg-blue-900 rounded">
-            <props.icon style={{height: 90, width: 90}}/>
+          <div className="flex justify-center align-middle p-10 bg-white rounded">
+            <img src={props.icon} alt={props.altText} style={{height: 90, width: 90}}/>
           </div>
           <div className="description">
             <div>
