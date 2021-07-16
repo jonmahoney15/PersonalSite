@@ -1,6 +1,26 @@
-{
-    "Id": 0,
-    "Name": "Coding",
-    "Description" : "I look everyday to learn more. I began progmamming in highschool. Starting with java, now comfortable with frontend and backend development. I have also done some embedded development during my career. I graduated in spring of 2019 with",
-    "Path": "./svg/coding.svg"
-}
+[
+    {
+        "Id": 0,
+        "Name": "Coding",
+        "Description" : "I look everyday to learn more. I began progmamming in highschool. Starting with java, now comfortable with frontend and backend development. I have also done some embedded development during my career with c++. I graduated in spring of 2019 with my B.S. in Computer Science.",
+        "Path": "./svg/code.svg"
+    },
+    {
+        "Id": 1,
+        "Name": "Computer",
+        "Description" : "I have spent a great deal of time learning the inner workings of computer hardware. I have built my own PCs and continue to learn by building my own minature networj with multiple raspbery pis and other IoT devices.",
+        "Path": "./svg/Computer.svg"
+    },
+    {
+        "Id": 2,
+        "Name": "Quadcopter",
+        "Description" : "I build quadcopters as a hobby. It is a very addictive hobby being able to fly so fast (at speeds greater than 70 mph) and be so agile. If you have not tried it, I recommend checking out 'FPV Quadcopters' and if you are anything like me you'll be amazed.",
+        "Path": "./svg/Quadcopter.svg"
+    },
+    {
+        "Id": 3,
+        "Name": "3D Printing",
+        "Description" : "I recently picked up a new hobby of 3D printing that will allow me to make my own parts for Quadcopters and other devices I construct. I also annoy my Wife with high electric bills.",
+        "Path": "./svg/3d_printer.svg"   
+    }
+]
