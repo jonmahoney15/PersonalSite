@@ -4,9 +4,9 @@ import Cards from './components/Cards';
 
 function App() {
   return (
-    <div>
+    <div className="h-screen bg-green-200">
       <Navbar/>
-      <div className="p-5 bg-gray-500 h-screen">
+      <div className="h-screen bg-gradient-to-b from-black to-green-200">
         <div className="flex justify-center p-5 items-center flex-col" >
           <h1 className="justify-center text-4xl md:text-5xl lg:text-6xl text-white">Hello World 👋</h1>
           <p className="justify-center text-white mt-5 md:text-lg lg:text-4xl">
