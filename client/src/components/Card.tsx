@@ -1,4 +1,3 @@
-import React from "react";
 import '../styles/Card.css';
 
 interface CardProp {
@@ -10,7 +9,7 @@ interface CardProp {
 const Card = (props: CardProp) => {
   return (
       <div className="m-5" id="Card">
-          <div className="flex justify-center align-middle p-10 bg-white rounded hover: rounded-top">
+          <div className="image flex justify-center align-middle p-10 bg-white">
             <img src={props.icon} alt={props.altText} style={{height: 90, width: 90}}/>
           </div>
           <div className="description">

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import {useState,useEffect} from 'react';
 import Card from './Card';
 
 interface ICard {
@@ -9,9 +9,8 @@ interface ICard {
 }
 
 const Cards = () => {
-
     const [cardData, setCard] = useState([]);
- 
+
     const getCardData = () => {
         fetch('data.json' ,{
             headers : { 
@@ -31,7 +30,7 @@ const Cards = () => {
     },[]);
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-evenly">
+        <div className="flex flex-col md:overflow-hidden md:flex-row items-center justify-evenly">
             {
                 cardData && cardData.length > 0 && 
                 cardData.map((card: ICard) => <Card icon={card.Path} altText={card.Name} description={card.Description} />)
