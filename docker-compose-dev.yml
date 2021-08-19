@@ -8,6 +8,3 @@ services:
     volumes:
       - ./client/:/usr/src/app
       - /usr/src/app/node_modules
-volumes:
-  mongo-data:
-    driver: local
