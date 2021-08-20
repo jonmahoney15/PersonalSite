@@ -8,7 +8,7 @@
     {
         "Id": 1,
         "Name": "Computer",
-        "Description" : "Through countless hours of reading, building and taking apart I have learning the inner workings of computer hardware. I have built my own PCs and continue to learn by building my own minature network with multiple raspbery pis and other IoT devices.",
+        "Description" : "Through countless hours of reading, building and taking apart I continue to learn the inner workings of computer hardware. I have built my own PCs and continue to learn by building my own minature network with multiple raspbery pis and other IoT devices.",
         "Path": "./svg/Computer.svg"
     },
     {

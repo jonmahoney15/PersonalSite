@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import Post from './Post';
+
 interface IPost {
   Title: string;
   Date: string;
@@ -29,8 +30,7 @@ const Blog = () => {
     },[]);
 
   return(
-    <div className="flex flex-col h-screen">
-      <div className="flex flex-col bg-cover bg-gradient-to-b from-black to-purple-500 text-white text-5xl">
+      <div className="flex flex-col h-screen bg-cover bg-gradient-to-b from-black to-purple-500 text-5xl items-center ">
         {  
           postData && postData.length > 0 &&
           postData.map((post: IPost) => 
@@ -42,7 +42,6 @@ const Blog = () => {
               />)
         }
       </div>
-    </div>
   );
 }
 

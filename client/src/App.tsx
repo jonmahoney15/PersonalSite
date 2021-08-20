@@ -49,7 +49,6 @@ const App = () => {
         </Switch>
       </div>
     </Router>
-
   );
 }
 

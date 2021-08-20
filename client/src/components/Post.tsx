@@ -7,7 +7,7 @@ interface IPostProps {
 
 const Post = (props: IPostProps) => {
   return (
-    <div className="flex bg-white w-full mb-5 shadow-sm rounded-lg">
+    <div className="flex justify-evenly bg-white w-5/12 mb-5 shadow-lg rounded-lg">
       <div className="w-5/12 p-2">
         <img src={props.Image} className="bg-contain bg-no-repeat bg-center w-full h-full"></img>
       </div>
