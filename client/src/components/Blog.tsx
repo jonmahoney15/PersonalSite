@@ -9,7 +9,7 @@ interface IPost {
 }
 
 const Blog = () => {
-    const [postData, setPosts] = useState([]);
+  const [postData, setPosts] = useState([]);
 
   const getBlogPosts = () => {//this will need to change to fetch from backend
         fetch('blogs.json' ,{
@@ -20,7 +20,6 @@ const Blog = () => {
         }).then((response) => {
             return response.json();
         }).then((myJson) => {
-           console.log(myJson);
            setPosts(myJson);
         });
     }
@@ -32,15 +31,15 @@ const Blog = () => {
   return(
       <div className="flex flex-col h-screen bg-cover bg-gradient-to-b from-black to-purple-500 text-5xl items-center ">
         {  
-          postData && postData.length > 0 &&
+          postData && postData.length > 0 ?
           postData.map((post: IPost) => 
             <Post 
               Title={post.Title} 
               Description={post.Description}
               Image={post.Image}
-              Date={post.Date}
-              />)
-        }
+              Date={post.Date}/>)
+          : <h1 className="text-white text-5xl">There are no posts currently.</h1> 
+         }
       </div>
   );
 }
