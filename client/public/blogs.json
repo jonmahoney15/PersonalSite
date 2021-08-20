@@ -1,0 +1,20 @@
+[
+    {
+        "Date": "1975-08-19T23:15:00.0000Z",
+        "Title": "Coding",
+        "Description" : "Everyday I strive to learn more. My first programs were in highschool starting with java and Object-Oriented Programming. Now, I am comfortable with frontend and backend development. During my career, I have also done some embedded development  with c++. In the Spring of 2019 I graduated with my B.S. in Computer Science.",
+        "Image": "./svg/code.svg"
+    },
+    {
+        "Date": "1975-08-19T23:15:00.0000Z",
+        "Title": "Coding",
+        "Description" : "Through countless hours of reading, building and taking apart I have learning the inner workings of computer hardware. I have built my own PCs and continue to learn by building my own minature network with multiple raspbery pis and other IoT devices.",
+        "Image": "./svg/Computer.svg"
+    },
+    {
+        "Date": "1975-08-19T23:15:00.0000Z",
+        "Title": "Quadcopter",
+        "Description" : "I build quadcopters as a hobby. It is a very addictive hobby being able to fly so fast (at speeds greater than 70 mph) and be so agile. If you have not tried it, I recommend checking out 'FPV Quadcopters' and if you are anything like me you'll be amazed.",
+        "Image": "./svg/Quadcopter.svg"
+    }
+]
