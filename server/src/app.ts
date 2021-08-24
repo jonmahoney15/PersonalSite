@@ -3,7 +3,7 @@ import cors from "cors";
 import helmet from 'helmet';
 import express from "express";
 import pinoHttp from "pino-http";
-import { ContactRouter } from "./Contact/ContactController";
+import { ContactRouter } from "./contact/ContactController";
 
 import { errorMiddleware, notFoundMiddleware } from "./util/error";
 import { logger } from "./util/logger";
