@@ -1,7 +1,7 @@
 //@ts-nocheck
 import mailer from 'nodemailer';
 import { IEmail } from './ContactTypes';
-
+import { logger } from '../util/logger';
 
 const transporter = mailer.createTransport({
   service: 'gmail',
@@ -12,7 +12,6 @@ const transporter = mailer.createTransport({
 });
 
 export const sendMail = (req: IEmail) => {
-  console.log(req);
   const mailOptions = {
     from: 'donotreplyjonsdevbox@gmail.com',
     to: 'donotreplyjonsdevbox@gmail.com',
@@ -22,9 +21,9 @@ export const sendMail = (req: IEmail) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if ( error ) {
-        console.log(error);
+        logger.info(`Error in Contact Service: ${error}`);
     } else {
-        console.log('Email sent: ' + info.response);
+        logger.info(`Email sent: ${info.response}`);
         info.end("sent");
     }
   })
