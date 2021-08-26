@@ -1,12 +1,13 @@
 import './styles/output.css';
-import Homepage from './components/Homepage';
+import Homepage from './components/Homepage/Homepage';
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
+import Blog from './components/Blogpage/Blog';
+import Contact from './components/Contactpage/Contact';
+import Adminpage from './components/Admin/Adminpage';
 import Navbar from './components/Navbar';
 import { useEffect, useState } from 'react';
 
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/Home" component={Homepage}/>
           <Route path="/Blog" component={Blog}/>
           <Route path="/Contact" component={Contact}/>
+          <Route path="/Admin" component={Adminpage}/>
         </Switch>
       </div>
     </Router>
