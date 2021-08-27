@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import express from "express";
 import pinoHttp from "pino-http";
 import { ContactRouter } from "./contact/ContactController";
+import { BlogRouter } from "./Blog/BlogController";
 
 import { errorMiddleware, notFoundMiddleware } from "./util/error";
 import { logger } from "./util/logger";
@@ -19,7 +20,7 @@ app.use(pinoHttp({ logger }));
 app.get("/api/health", (req, res) => res.send({ message: "OK" }));
 
 app.use("/api/contact", ContactRouter);
-
+app.use("/api/blog", BlogRouter);
 app.use([errorMiddleware, notFoundMiddleware]);
 
 export { app };

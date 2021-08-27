@@ -1,3 +1,6 @@
+import { Router } from "express";
+
+const router = Router();
 const data = [
   { Title: 'Porsche', Date: 2, Description: 'Blue' },
   { Title: 'BMW', Date: 1, Description: 'Grey' },
@@ -9,3 +12,11 @@ const data = [
   { Title: 'Toyota', Date: 9, Description: 'Copper' },
   { Title: 'Honda', Date: 12, Description: 'Biege' }
 ]
+
+router.get("/Posts", (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(data));
+  res.send(200);
+});
+
+export { router as BlogRouter };
