@@ -1,11 +1,12 @@
 import boom from "@hapi/boom";
 import type { NextFunction, Request, Response } from "express";
 import pino from "pino";
-
+import * as database from "../database/database";
 import { logger } from "./logger";
 
 export const handle = pino.final(logger, (err, finalLogger) => {
   finalLogger.fatal(err);
+  database.disconnect();
   process.exitCode = 1;
   process.kill(process.pid, "SIGTERM");
 });

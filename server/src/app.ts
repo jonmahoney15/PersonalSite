@@ -5,7 +5,7 @@ import express from "express";
 import pinoHttp from "pino-http";
 import { ContactRouter } from "./contact/ContactController";
 import { BlogRouter } from "./Blog/BlogController";
-
+import * as database from "./database/database";
 import { errorMiddleware, notFoundMiddleware } from "./util/error";
 import { logger } from "./util/logger";
 
@@ -21,6 +21,9 @@ app.get("/api/health", (req, res) => res.send({ message: "OK" }));
 
 app.use("/api/contact", ContactRouter);
 app.use("/api/blog", BlogRouter);
+
+database.connect();
+
 app.use([errorMiddleware, notFoundMiddleware]);
 
 export { app };
