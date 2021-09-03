@@ -4,8 +4,6 @@ interface IModalProps {
     Title: string;
     ButtonTitle: string;
     ChildComponent?: ReactNode;
-    CloseButtonLabel: string;
-    Action?: () => void;
 }
 
 const Modal = (props: IModalProps) => {
@@ -50,13 +48,6 @@ const Modal = (props: IModalProps) => {
                         onClick={() => setShowModal(false)}
                       >
                         Close
-                      </button>
-                      <button
-                        className="bg-blue-500 text-white active:bg-blue-200 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => setShowModal(false)}
-                      >
-                        {props.CloseButtonLabel}
                       </button>
                     </div>
                   </div>

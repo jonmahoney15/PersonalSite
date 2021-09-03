@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import CreatePostForm from "./CreatePostForm";
 import Modal from "./Modal";
 import axios from "axios";
 
@@ -6,6 +7,7 @@ interface IPosts {
     Title: string;
     Date: Date;
     Description: string;
+    Image: any;
 }
 
 const Adminpage = () => {
@@ -17,19 +19,21 @@ const Adminpage = () => {
             try {
                 let response = await axios.get('/api/blog/Posts')
                 let data = response.data;
-                let newPosts: IPosts[] = data.map((e: IPosts) => e);
-                setPosts(newPosts);
+                if( data.items && data.items.length > 0 ){
+                    let newPosts: IPosts[] = data.map((e: IPosts) => e);
+                    setPosts(newPosts); 
+                }
             } catch(error) {
                setError(error);
             }
         }
-
         getPosts();
     }, []);
 
-    const buttons = () => {
+    //pass the title to the delete form and delete based on title 
+    const buttons = (title: string) => {
         return (
-            <Modal Title="Delete Post" ButtonTitle="Delete" CloseButtonLabel="Yes" ChildComponent={<p>Are you sure you want to delete this blog?</p>}/>
+            <Modal Title="Delete Post" ButtonTitle="Delete" ChildComponent={<p>Are you sure you want to delete this blog?</p>}/>
         );    
     }
 
@@ -39,7 +43,7 @@ const Adminpage = () => {
             <tr>
                 <td className="px-8 py-4 text-left border border-gray-100">{post.Title}</td>
                 <td className="px-8 py-4 text-left border border-gray-100">{post.Date}</td>
-                <td className="px-8 py-4 text-left border border-gray-100">{buttons()}</td>
+                <td className="px-8 py-4 text-left border border-gray-100">{buttons(post.Title)}</td>
             </tr>);
             })
         return rows;
@@ -61,7 +65,7 @@ const Adminpage = () => {
                     </tbody>
                 </table>
             </div>
-            <Modal Title="Create Blog Post" ButtonTitle="Create Post" CloseButtonLabel="Create" ChildComponent={null}  />            
+            <Modal Title="Create Blog Post" ButtonTitle="Create Post" ChildComponent={<CreatePostForm />}  />            
         </div>
     );
 }

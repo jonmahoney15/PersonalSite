@@ -1,24 +1,49 @@
-import { Router } from "express";
+import { Request, Response } from "express";
+import fs from 'fs';
+import path from 'path';
+import { IPost } from "./BlogTypes";
+import { Post } from "./BlogModels";
+import multer from 'multer';
+export const GetPosts = (req: Request, res: Response) =>
+{
+  Post.find({}, (err, items) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({message: err.message});
+    } else { 
+      res.status(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.json({items: items});
+    }
+  })
+}
 
-const router = Router();
-const data = [
-  { Title: 'Porsche', Date: 2, Description: 'Blue' },
-  { Title: 'BMW', Date: 1, Description: 'Grey' },
-  { Title: 'Renault', Date: 2, Description: 'Yellow' },
-  { Title: 'Volkswagen', Date: 7, Description: 'Matte Red' },
-  { Title: 'Porsche', Date: 2, Description: 'Silver Grey' },
-  { Title: 'Jaguar', Date: 6, Description: 'Electric Blue' },
-  { Title: 'Mistubishi', Date: 4, Description: 'Black' },
-  { Title: 'Toyota', Date: 9, Description: 'Copper' },
-  { Title: 'Honda', Date: 12, Description: 'Biege' }
-]
+export const CreatePost = async (req: Request, res: Response) => {
+  try {
+    console.log(req.body);
+    console.log(req.file);
+    const post: IPost = req.body.Post;
+    const title = post.Title;
+    const exists = await Post.findOne({ title }); 
 
-router.get("/Posts", (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(data));
-  res.send(200);
-});
+    if (exists) {
+      return res.json({message: "Title already exists!"});
+    }
 
+    const newPost = new Post({
+      Title: post.Title,
+      Date: post.Date,
+      Description: post.Description,
+      Image: { data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename )), contentType: 'image/png' },
+      MarkDown: post.MarkDown
+    });
 
+    await newPost.save();
+    
+    res.status(200).json({ message: `New Post with Title: ${newPost.Title} added` })
 
-export { router as BlogRouter };
+  } catch(error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
