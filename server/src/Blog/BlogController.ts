@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { IPost } from "./BlogTypes";
 import { Post } from "./BlogModels";
-import multer from 'multer';
+
 export const GetPosts = (req: Request, res: Response) =>
 {
   Post.find({}, (err, items) => {
@@ -18,11 +18,24 @@ export const GetPosts = (req: Request, res: Response) =>
   })
 }
 
+export const RemovePost = async (req: Request, res: Response) => {
+  try {
+    const title = req.body.Title;
+    const post = await Post.findOne({ title });
+    
+    if ( !post )
+    {
+        res.json({message: "No post with that title"})
+    } 
+
+  } catch(error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 export const CreatePost = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-    console.log(req.file);
-    const post: IPost = req.body.Post;
+    const post: IPost = JSON.parse(req.body.Post);
     const title = post.Title;
     const exists = await Post.findOne({ title }); 
 
@@ -34,7 +47,10 @@ export const CreatePost = async (req: Request, res: Response) => {
       Title: post.Title,
       Date: post.Date,
       Description: post.Description,
-      Image: { data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename )), contentType: 'image/png' },
+      Image: { 
+        data: fs.readFileSync(path.join(__dirname + '/../../uploads/' + req.file.filename)), 
+        contentType: 'image/png' 
+      },
       MarkDown: post.MarkDown
     });
 
@@ -46,4 +62,3 @@ export const CreatePost = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 }
-

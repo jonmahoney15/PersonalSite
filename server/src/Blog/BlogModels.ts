@@ -21,8 +21,8 @@ const PostSchema: Schema = new Schema({
         contentType: String,
         required: false
     },
-    Markdown: {
-        type: Boolean,
+    MarkDown: {
+        type: String,
         required: false
     }
 });

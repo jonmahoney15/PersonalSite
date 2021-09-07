@@ -21,14 +21,11 @@ const CreatePostForm = () => {
 
     const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        console.log(formData);
         
         const form = new FormData();
         
         form.append("Post", JSON.stringify(formData));
         form.append('file', formData.Image);
-
-        console.log(form.getAll('file'));
 
         const config = {
             headers: {
@@ -37,9 +34,9 @@ const CreatePostForm = () => {
         }
 
         axios.post('/api/blog/CreatePost', form, config)
-            .then(response => console.log(response))
+            .then(response => setPostResponse(response.data))
             .catch(error => console.log(error));
-        setFormData(InitialPost);
+        setFormData(InitialPost); 
     }
 
     const imageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +59,7 @@ const CreatePostForm = () => {
 
     return (
         <div className="flex flex-col border-gray-500 bg-cover">
-            {response && response !== "" ? <p>{response}</p> : 
+            {response && response !== "" ? <p>Submitted!</p> : 
             <form encType="multipart/form-data" onSubmit={handleSubmit} className="m-5">
                 <label className="flex flex-col m-5">
                     Title:

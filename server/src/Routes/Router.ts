@@ -15,11 +15,11 @@ const storage = multer.diskStorage({
     cb(null, 'uploads')
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname)
+    cb(null, file.fieldname + '-' + Date.now())
   }
 });
 
-const upload = multer({dest: 'uploads/'});
+const upload = multer({ storage: storage });
 
 const router = Router();
 

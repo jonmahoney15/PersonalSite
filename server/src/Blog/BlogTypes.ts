@@ -5,5 +5,5 @@ export interface IPost extends Document{
     Date: Date;
     Description: string;
     Image: any; 
-    MarkDown: boolean;
+    MarkDown: string;
 }

@@ -1,4 +1,5 @@
 import {useState, ReactNode} from "react";
+import {useHistory} from "react-router-dom";
 
 interface IModalProps {
     Title: string;
@@ -8,7 +9,7 @@ interface IModalProps {
 
 const Modal = (props: IModalProps) => {
     const [showModal, setShowModal] = useState(false);
-    
+    let history = useHistory();
     return (
         <>
           <button
@@ -45,7 +46,7 @@ const Modal = (props: IModalProps) => {
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => setShowModal(false)}
+                        onClick={() => {setShowModal(false)}}
                       >
                         Close
                       </button>
