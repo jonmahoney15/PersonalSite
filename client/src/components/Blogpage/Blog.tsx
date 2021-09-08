@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import Post from './Post';
+import axios from 'axios';
 
 interface IPost {
   Title: string;
@@ -9,36 +10,35 @@ interface IPost {
 }
 
 const Blog = () => {
-  const [postData, setPosts] = useState([]);
+  const [postData, setPosts] = useState<IPost[]>([]);
 
-  const getBlogPosts = () => {//this will need to change to fetch from backend
-        fetch('blogs.json' ,{
-            headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+  useEffect(() => {
+        const getPosts = async () => {
+            try {
+                let response = await axios.get('/api/blog/Posts')
+                let data = response.data;
+                if( data.items && data.items.length > 0 ){
+                    let newPosts: IPost[] = data.items.map((e: IPost) => e);
+                    setPosts(newPosts); 
+                }
+            } catch(error) {
+              console.log(error);
             }
-        }).then((response) => {
-            return response.json();
-        }).then((myJson) => {
-           setPosts(myJson);
-        });
-    }
-    
-    useEffect(()=>{ 
-        getBlogPosts()
-    },[]);
+        }
+        getPosts();
+  }, []);
 
   return(
-      <div className="flex flex-col h-screen bg-cover bg-gradient-to-b from-black to-purple-500 text-5xl items-center ">
+      <div className="flex flex-col items-center h-screen text-5xl bg-cover bg-gradient-to-b from-black to-purple-500 ">
         {  
           postData && postData.length > 0 ?
           postData.map((post: IPost) => 
-            <Post 
+            <Post
               Title={post.Title} 
               Description={post.Description}
               Image={post.Image}
               Date={post.Date}/>)
-          : <h1 className="text-white text-5xl">There are no posts currently.</h1> 
+          : <h1 className="text-5xl text-white">There are no posts currently.</h1> 
          }
       </div>
   );

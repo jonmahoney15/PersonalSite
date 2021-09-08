@@ -1,20 +1,43 @@
+import {useHistory} from "react-router-dom";
+
 interface IPostProps {
   Title: string;
-  Image: string;
+  Image: any;
   Description: string;
   Date: string;
 }
 
 const Post = (props: IPostProps) => {
+  let history = useHistory();
+  let date = new Date(props.Date).toLocaleDateString();
+  let bitmap : number[]= props.Image.data.data;
+  //@ts-ignore
+  let objImg: string = new Buffer.from(bitmap).toString("base64");
+
+  const handleClick = () => {
+    let location = {
+      pathname: `/post/${props.Title}`,
+      state: { 
+        Title: props.Title,
+        Image: props.Image,
+        Description: props.Description,
+        Date: props.Date
+      }
+    }
+    
+    history.push(location);
+  };
+
   return (
-    <div className="flex justify-evenly bg-white w-5/12 mb-5 shadow-lg rounded-lg">
-      <div className="w-5/12 p-2">
-        <img src={props.Image} alt="props.Title" className="bg-contain bg-no-repeat bg-center w-full h-full"></img>
+    <div className="flex w-5/12 mb-5 bg-white rounded-lg shadow-lg h-1/4 max-h-52">
+      <div className="w-1/4 rounded-l-lg">
+        <img src={`data:image/png;base64,${objImg}`} alt={props.Title} className="w-full h-full bg-center rounded-l-lg"></img>
       </div>
-      <div className="w-7/12 p-5">
-        <h1 className="text-black md:text-2xl">{props.Title.substr(0, 50)}</h1>
-        <p className="text-black text-sm">{props.Date}</p>
-        <div className="text-black text-base mt-4">{props.Description.substr(0, 200)}</div>
+      <div className="items-center w-9/12 p-3">
+        <h1 className="text-lg text-black truncate md:text-2xl">{props.Title}</h1>
+        <p className="mb-5 text-sm text-black">{date}</p>
+        <p className="w-full overflow-hidden text-base text-black h-2/5 overflow-ellipsis">{props.Description}...</p>
+        <button onClick={handleClick} className="text-sm text-purple-500 underline md:text-base">Read More</button>
       </div>
     </div>
   );

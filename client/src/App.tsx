@@ -6,6 +6,7 @@ import {
   Switch
 } from 'react-router-dom';
 import Blog from './components/Blogpage/Blog';
+import Postpage from './components/Blogpage/Postpage';
 import Contact from './components/Contactpage/Contact';
 import Adminpage from './components/Admin/Adminpage';
 import Navbar from './components/Navbar';
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/Blog" component={Blog}/>
           <Route path="/Contact" component={Contact}/>
           <Route path="/Admin" component={Adminpage}/>
+          <Route path="/Post/:title" component={Postpage}/>
         </Switch>
       </div>
     </Router>

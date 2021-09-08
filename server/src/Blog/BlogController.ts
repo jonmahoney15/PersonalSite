@@ -6,7 +6,7 @@ import { Post } from "./BlogModels";
 
 export const GetPosts = (req: Request, res: Response) =>
 {
-  Post.find({}, (err, items) => {
+   Post.find({}, (err, items) => {
     if (err) {
       console.log(err);
       res.status(500).json({message: err.message});
@@ -18,16 +18,37 @@ export const GetPosts = (req: Request, res: Response) =>
   })
 }
 
+export const UpdatePost = async (req: Request, res: Response) => {
+  try {
+    const post = req.body.post;
+    const original = await Post.findById(req.body.id);
+    
+    if ( original?.Title === post.Title &&
+         original?.MarkDown === post.MarkDown && 
+         original?.Description === post.Description ) 
+    {
+      res.status(200).json({message: "The updated post has no difference from original."})
+    }
+
+    await Post.findByIdAndUpdate(req.body.id, {
+      Title: post.Title,
+      Date: post.Date,
+      Description: post.Description,
+      Image: original?.Image,
+      MarkDown: post.MarkDown
+    });
+
+    res.status(200).json({message: 'Succesfully updated post'});
+
+  } catch (error) {
+    res.status(500).json({message: error.message});
+  } 
+}
+
 export const RemovePost = async (req: Request, res: Response) => {
   try {
-    const title = req.body.Title;
-    const post = await Post.findOne({ title });
-    
-    if ( !post )
-    {
-        res.json({message: "No post with that title"})
-    } 
-
+    const postRemoved = await Post.findByIdAndRemove(req.body.id); 
+    res.json({message: `Removed ${postRemoved?.Title}`});
   } catch(error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,8 +57,8 @@ export const RemovePost = async (req: Request, res: Response) => {
 export const CreatePost = async (req: Request, res: Response) => {
   try {
     const post: IPost = JSON.parse(req.body.Post);
-    const title = post.Title;
-    const exists = await Post.findOne({ title }); 
+    const title: string = post.Title;
+    const exists = await Post.findOne({Title: title}); 
 
     if (exists) {
       return res.json({message: "Title already exists!"});
