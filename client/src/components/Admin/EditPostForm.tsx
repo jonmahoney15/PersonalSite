@@ -1,5 +1,5 @@
 import {useState} from "react";
-import axios from "axios";
+import { api } from '../../api/api';
 
 interface IPost {
     _id: string;
@@ -28,7 +28,7 @@ const EditPostForm = (props: IEditProp) => {
                 MarkDown: formData.MarkDown
             }
         } 
-        axios.post(process.env.REACT_APP_BASE_URL+'/blog/EditPost', update)
+        api.post('/blog/EditPost', update)
             .then(response => setPostResponse(response.data.message))
             .catch(error => console.log(error));
     }
@@ -45,7 +45,7 @@ const EditPostForm = (props: IEditProp) => {
     let objImg: string = new Buffer.from(bitmap).toString("base64");
 
     return (
-        <div className="flex flex-col bg-cover border-gray-500">
+        <div className="flex flex-col bg-gray-300 bg-cover border-gray-500">
             {response && response !== "" ? <p>{response}</p> : 
             <form encType="multipart/form-data" onSubmit={handleSubmit} className="m-5">
                 <label className="flex flex-col m-5">

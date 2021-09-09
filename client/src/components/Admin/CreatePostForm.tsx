@@ -1,5 +1,5 @@
 import {useState} from "react";
-import axios from "axios";
+import { api } from '../../api/api';
 
 interface IPost {
     Title: string;
@@ -33,8 +33,8 @@ const CreatePostForm = () => {
             }
         }
 
-        axios.post(process.env.REACT_APP_BASE_URL+'/blog/CreatePost', form, config)
-            .then(response => setPostResponse(response.data))
+        api.post('/blog/CreatePost', form, config)
+            .then(response => setPostResponse(response.data.message))
             .catch(error => console.log(error));
         setFormData(InitialPost); 
     }
@@ -59,7 +59,7 @@ const CreatePostForm = () => {
 
     return (
         <div className="flex flex-col border-gray-500 bg-cover">
-            {response && response !== "" ? <p>Submitted!</p> : 
+            {response && response !== "" ? <p>{response}</p> : 
             <form encType="multipart/form-data" onSubmit={handleSubmit} className="m-5">
                 <label className="flex flex-col m-5">
                     Title:

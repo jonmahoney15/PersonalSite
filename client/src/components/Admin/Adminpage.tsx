@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import CreatePostForm from "./CreatePostForm";
 import Modal from "./Modal";
-import axios from "axios";
 import DeletePostForm from './DeletePostForm';
 import EditPostForm from "./EditPostForm";
+import { api } from '../../api/api';
 
 interface IPosts {
     _id: string;
@@ -21,7 +21,7 @@ const Adminpage = () => {
     useEffect(() => {
         const getPosts = async () => {
             try {
-                let response = await axios.get(process.env.REACT_APP_BASE_URL+'/blog/Posts')
+                let response = await api.get('/blog/Posts')
                 let data = response.data;
                 if( data.items && data.items.length > 0 ){
                     let newPosts: IPosts[] = data.items.map((e: IPosts) => e);
@@ -59,9 +59,7 @@ const Adminpage = () => {
             <tr key={key}>
                 <td className="px-8 py-4 text-left border border-gray-100">{post.Title}</td>
                 <td className="px-8 py-4 text-left border border-gray-100">{date}</td>
-                <td className="border border-gray-100">
-                    <img className="w-full align-middle max-h-52" src={`data:image/png;base64,${objImg}`} alt={post.Title}></img>
-                </td>
+                <td className="border border-gray-100"><img className="w-full align-middle max-h-52" src={`data:image/png;base64,${objImg}`} alt={post.Title}></img></td>
                 <td className="px-8 py-4 text-left border border-gray-100">{buttons(post)}</td>
             </tr>);
             })

@@ -1,13 +1,5 @@
 version: "3"
-services:
-  personal-site-client:
-    image: personal-site-client
-    stdin_open: true
-    ports: 
-      - "3000:3000"
-    volumes:
-      - ./client/:/usr/src/app
-      - /usr/src/app/node_modules
+services: 
   server:
     image: personal-site-api
     env_file: ./server/.env
@@ -33,6 +25,8 @@ services:
     ports:
       - 27017:27017
     restart: unless-stopped
+    logging: 
+      driver: none
 networks:
   mern-app:
     driver: bridge

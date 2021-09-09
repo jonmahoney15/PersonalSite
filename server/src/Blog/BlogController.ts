@@ -62,7 +62,7 @@ export const CreatePost = async (req: Request, res: Response) => {
     const exists = await Post.findOne({ Title: title });
 
     if (exists) {
-      return res.json({ message: "Title already exists!" });
+      return res.json({ message: "Post was not created! \n Title already exists!" });
     }
 
     const newPost = new Post({

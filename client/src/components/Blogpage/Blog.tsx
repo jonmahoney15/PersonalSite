@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import Post from './Post';
-import axios from 'axios';
+import { api } from '../../api/api';
 import SkeltonLoader from "./SkeltonLoader";
 
 interface IPost {
@@ -16,7 +16,7 @@ const Blog = () => {
   useEffect(() => {
         const getPosts = async () => {
             try {
-                let response = await axios.get(process.env.REACT_APP_BASE_URL+'/blog/Posts')
+                let response = await api.get('/blog/Posts')
                 let data = response.data;
                 if( data.items && data.items.length > 0 ){
                     let newPosts: IPost[] = data.items.map((e: IPost) => e);
@@ -41,8 +41,9 @@ const Blog = () => {
               <SkeltonLoader/>
           </div> :  
           postData && postData.length > 0 ?
-          postData.map((post: IPost) => 
-            <Post
+          postData.map((post: IPost, key: number) => 
+          <Post
+              key={key}
               Title={post.Title} 
               Description={post.Description}
               Image={post.Image}

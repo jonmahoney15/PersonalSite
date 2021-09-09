@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from 'axios';
+import { api } from '../../api/api';
 
 interface IEmailFields {
   FirstName: string;
@@ -109,9 +109,8 @@ const Contact = () => {
   };
 
   const handleSubmit = () => {
-    console.log(errors === InitialFormErrors);
-    axios
-      .post("/api/contact", {
+    
+    api.post("/contact", {
         title: "Inquire",
         body: form
       })
@@ -123,70 +122,70 @@ const Contact = () => {
   }
 
   return(
-    <div className="flex flex-col h-screen bg-cover bg-gradient-to-b from-black to-purple-500 text-white text-5xl items-center">
+    <div className="flex flex-col items-center h-screen text-5xl text-white bg-cover bg-gradient-to-b from-black to-purple-500">
       <h1>Contact Me</h1>
-      <div className="flex flex-col md:w-3/5 w-4/5 mt-10 items-center">
-        <div className="flex flex-col md:flex-row w-full">
-          <div className="flex flex-col m-5 w-full">
+      <div className="flex flex-col items-center w-4/5 mt-10 md:w-3/5">
+        <div className="flex flex-col w-full md:flex-row">
+          <div className="flex flex-col w-full m-5">
             <label className="text-xl">Email Address:</label>
             <input
               name="Email"
               type="email"
-              className="text-black text-xl px-3 py-2 mt-1 w-full h-16 rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              className="w-full h-16 px-3 py-2 mt-1 text-xl text-black rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
               defaultValue={InitialEmail.Email}
               value={form.Email}
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col m-5 w-full">
+          <div className="flex flex-col w-full m-5">
             <label className="text-xl">Email Title:</label>
             <input 
               name="Title" 
               type="text"          
-              className="text-black text-xl px-3 py-2 mt-1 w-full h-16 rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              className="w-full h-16 px-3 py-2 mt-1 text-xl text-black rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
               defaultValue={InitialEmail.Title}
               value={form.Title}
               onChange={handleChange}
             />
           </div> 
         </div>
-        <div className="flex flex-col md:flex-row w-full">
-          <div className="flex flex-col m-5 w-full">
+        <div className="flex flex-col w-full md:flex-row">
+          <div className="flex flex-col w-full m-5">
             <label className="text-xl">First Name:</label>
             <input
               name="FirstName"
               type="text"
-              className="text-black text-xl px-3 py-2 mt-1 w-full h-16 rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              className="w-full h-16 px-3 py-2 mt-1 text-xl text-black rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
               defaultValue={InitialEmail.FirstName}
               value={form.FirstName}
               onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col m-5 w-full">
+          <div className="flex flex-col w-full m-5">
             <label className="text-xl">Last Name:</label> 
             <input 
               name="LastName" 
               type="text"          
-              className="text-black text-xl px-3 py-2 mt-1 w-full h-16 rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              className="w-full h-16 px-3 py-2 mt-1 text-xl text-black rounded-xl border-grey-300 shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50"
               defaultValue={InitialEmail.LastName}
               value={form.LastName}
               onChange={handleChange}
             />
           </div>
         </div>
-        <div className="flex flex-col m-5 w-full">
+        <div className="flex flex-col w-full m-5">
           <label className="text-xl">What are you inquiring about:</label>
           <textarea 
             name="Description"
-            className="w-full text-lg px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" 
+            className="w-full px-3 py-2 text-lg text-gray-700 border rounded-lg focus:outline-none" 
             defaultValue={InitialEmail.Description}
             value={form.Description}
             onChange={handleChange} 
             rows={10}></textarea>
         </div>
-        <div className="flex justify-center items-center w-full">
+        <div className="flex items-center justify-center w-full">
          { message && message !== "" ? 
-          ( <h1 className="flex text-3xl justify-center">{message}</h1> ) :
+          ( <h1 className="flex justify-center text-3xl">{message}</h1> ) :
             <button 
               onClick={handleSubmit}
               disabled={ !(errors.FirstName && errors.LastName && errors.Title && errors.Email && errors.Description) }
