@@ -1,4 +1,4 @@
-import  Mongoose  from "mongoose";
+import Mongoose from "mongoose";
 import dotenv from "dotenv";
 
 let database: Mongoose.Connection;
@@ -6,13 +6,12 @@ let database: Mongoose.Connection;
 dotenv.config();
 
 export const connect = () => {
-  if(database){
+  if (database) {
     return;
   }
 
-  Mongoose.connect(`${process.env.MONGO_DB_URI}`); 
-  
-  
+  Mongoose.connect(`${process.env.MONGO_DB_URI}`);
+
   database = Mongoose.connection;
 
   database.once("open", async () => {

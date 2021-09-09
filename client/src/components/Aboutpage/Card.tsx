@@ -9,7 +9,7 @@ interface CardProp {
 const Card = (props: CardProp) => {
   return (
       <div className="m-5" id="Card">
-          <div className="image flex justify-center align-middle p-10 bg-white">
+          <div className="flex justify-center p-10 align-middle bg-white image">
             <img src={props.icon} alt={props.altText} style={{height: 90, width: 90}}/>
           </div>
           <div className="description">

@@ -21,7 +21,7 @@ const Adminpage = () => {
     useEffect(() => {
         const getPosts = async () => {
             try {
-                let response = await axios.get('/api/blog/Posts')
+                let response = await axios.get(process.env.REACT_APP_BASE_URL+'/blog/Posts')
                 let data = response.data;
                 if( data.items && data.items.length > 0 ){
                     let newPosts: IPosts[] = data.items.map((e: IPosts) => e);
@@ -50,13 +50,13 @@ const Adminpage = () => {
     }
 
     const getRows = () => {
-        let rows = posts.map(post => {            
+        let rows = posts.map((post: IPosts, key: number) => {            
             let date = new Date(post.Date).toLocaleDateString();
             let bitmap : number[]= post.Image.data.data;
             //@ts-ignore
             let objImg: string = new Buffer.from(bitmap).toString("base64");
             return (
-            <tr>
+            <tr key={key}>
                 <td className="px-8 py-4 text-left border border-gray-100">{post.Title}</td>
                 <td className="px-8 py-4 text-left border border-gray-100">{date}</td>
                 <td className="border border-gray-100">

@@ -1,5 +1,5 @@
 import './styles/output.css';
-import Homepage from './components/Homepage/Homepage';
+import Aboutpage from './components/Aboutpage/Aboutpage';
 import {
   BrowserRouter as Router,
   Route,
@@ -44,9 +44,9 @@ const App = () => {
       <div>
         <Navbar icon={icon.icon} altText={icon.altText} />
         <Switch>
-          <Route exact path="/" component={Homepage}/>
-          <Route path="/Home" component={Homepage}/>
-          <Route path="/Blog" component={Blog}/>
+          <Route exact path="/" component={Blog}/>
+          <Route path="/Home" component={Blog}/>
+          <Route path="/About" component={Aboutpage}/>
           <Route path="/Contact" component={Contact}/>
           <Route path="/Admin" component={Adminpage}/>
           <Route path="/Post/:title" component={Postpage}/>

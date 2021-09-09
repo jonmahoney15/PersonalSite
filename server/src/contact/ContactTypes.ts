@@ -4,4 +4,4 @@ export interface IEmail {
   Email: string;
   Title: string;
   Description: string;
-} 
+}

@@ -29,7 +29,7 @@ const Post = (props: IPostProps) => {
   };
 
   return (
-    <div className="flex w-5/12 mb-5 bg-white rounded-lg shadow-lg h-1/4 max-h-52">
+    <div className="flex w-7/12 mb-5 overflow-hidden bg-white rounded-lg shadow-lg h-2/5">
       <div className="w-1/4 rounded-l-lg">
         <img src={`data:image/png;base64,${objImg}`} alt={props.Title} className="w-full h-full bg-center rounded-l-lg"></img>
       </div>

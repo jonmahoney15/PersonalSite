@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { Post } from './Blog/BlogModels';
+import { Post } from "./Blog/BlogModels";
 
-export const getPost = async (req: Request, res: Response, next: NextFunction) => {
+export const getPost = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   let post;
   try {
     post = await Post.findById(req.body.id);
@@ -11,8 +15,8 @@ export const getPost = async (req: Request, res: Response, next: NextFunction) =
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  
+
   //@ts-nocheck
   res.post = post;
   next();
-}
+};

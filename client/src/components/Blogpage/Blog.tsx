@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import Post from './Post';
 import axios from 'axios';
+import SkeltonLoader from "./SkeltonLoader";
 
 interface IPost {
   Title: string;
@@ -11,26 +12,34 @@ interface IPost {
 
 const Blog = () => {
   const [postData, setPosts] = useState<IPost[]>([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
         const getPosts = async () => {
             try {
-                let response = await axios.get('/api/blog/Posts')
+                let response = await axios.get(process.env.REACT_APP_BASE_URL+'/blog/Posts')
                 let data = response.data;
                 if( data.items && data.items.length > 0 ){
                     let newPosts: IPost[] = data.items.map((e: IPost) => e);
                     setPosts(newPosts); 
                 }
+              setLoading(false);
             } catch(error) {
               console.log(error);
+              setLoading(false);
             }
         }
+        setLoading(true);
         getPosts();
   }, []);
 
   return(
       <div className="flex flex-col items-center h-screen text-5xl bg-cover bg-gradient-to-b from-black to-purple-500 ">
-        {  
+        { loading ?
+          <div className="flex flex-col">
+              <SkeltonLoader/>
+              <SkeltonLoader/>
+              <SkeltonLoader/>
+          </div> :  
           postData && postData.length > 0 ?
           postData.map((post: IPost) => 
             <Post
@@ -38,8 +47,8 @@ const Blog = () => {
               Description={post.Description}
               Image={post.Image}
               Date={post.Date}/>)
-          : <h1 className="text-5xl text-white">There are no posts currently.</h1> 
-         }
+          : <h1 className="text-5xl text-white">There are no posts currently.</h1>   
+        }
       </div>
   );
 }

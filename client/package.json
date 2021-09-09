@@ -52,6 +52,5 @@
     "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.2.4"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

@@ -33,7 +33,7 @@ const CreatePostForm = () => {
             }
         }
 
-        axios.post('/api/blog/CreatePost', form, config)
+        axios.post(process.env.REACT_APP_BASE_URL+'/blog/CreatePost', form, config)
             .then(response => setPostResponse(response.data))
             .catch(error => console.log(error));
         setFormData(InitialPost); 

@@ -28,7 +28,7 @@ const EditPostForm = (props: IEditProp) => {
                 MarkDown: formData.MarkDown
             }
         } 
-        axios.post('/api/blog/EditPost', update)
+        axios.post(process.env.REACT_APP_BASE_URL+'/blog/EditPost', update)
             .then(response => setPostResponse(response.data.message))
             .catch(error => console.log(error));
     }

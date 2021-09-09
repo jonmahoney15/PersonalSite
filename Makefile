@@ -1,15 +1,8 @@
 ### DEV
-
 build-dev:
-	cd client && $(MAKE) build-dev
+		cd client && $(MAKE) build-dev
+		cd server && $(MAKE) build	
 
 run-dev:
-	docker-compose -f docker-compose-dev.yml up
+	docker-compose -f docker-compose.yml up
 
-### PROD
-
-build-prod:
-	cd client && $(MAKE) build-prod
-
-run-prod:
-	docker-compose -f docker-compose.yml up 
