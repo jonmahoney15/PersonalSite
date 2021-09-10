@@ -2,7 +2,7 @@
 
 ## Steps to launching Dev
 
-### 1. Make sure your have Yarn, Make, Docker and Dockercompose installed locally. 
+### 1. Make sure your have Yarn, Make, Docker and Docker-Compose installed locally. 
 ### 2. In base directory run "Make build-dev"
 ### 3. run "Make run-dev" this will start the backend and DB
 ### 4. cd into client and run yarn start
