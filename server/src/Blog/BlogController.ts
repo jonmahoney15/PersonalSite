@@ -70,9 +70,8 @@ export const CreatePost = async (req: Request, res: Response) => {
       Date: post.Date,
       Description: post.Description,
       Image: {
-        data: fs.readFileSync(
-          path.join(__dirname + "/../../uploads/" + req.file.filename)
-        ),
+        //@ts-ignore
+        data: fs.readFileSync( path.join(__dirname + "/../../uploads/" + req.file.filename) ),
         contentType: "image/png",
       },
       MarkDown: post.MarkDown,
