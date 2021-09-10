@@ -3,7 +3,7 @@ import CreatePostForm from "./CreatePostForm";
 import Modal from "./Modal";
 import DeletePostForm from './DeletePostForm';
 import EditPostForm from "./EditPostForm";
-import { api } from '../../api/api';
+import api from '../../api/api';
 
 interface IPosts {
     _id: string;

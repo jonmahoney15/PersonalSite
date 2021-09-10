@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import Post from './Post';
-import { api } from '../../api/api';
+import api from '../../api/api';
 import SkeltonLoader from "./SkeltonLoader";
 
 interface IPost {
