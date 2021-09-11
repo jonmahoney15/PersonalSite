@@ -15,8 +15,7 @@ export const getPost = async (
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-
-  //@ts-nocheck
+  //@ts-ignore
   res.post = post;
   next();
 };

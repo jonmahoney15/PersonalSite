@@ -8,12 +8,13 @@ import {
   RemovePost,
   UpdatePost,
 } from "../Blog/BlogController";
+import { Register, Login } from "../Auth/AuthController";
 import { getPost } from "../Middleware";
 
 const contactLimiter = rateLimit({
   max: 5,
   windowMs: 24 * 60 * 60 * 1000, //one day
-  message: "Too many email requests!",
+  message: "Too many attempts!",
 });
 
 const storage = multer.diskStorage({
@@ -29,11 +30,13 @@ const upload = multer({ storage: storage });
 
 const router = Router();
 
-router.get("/health", (req, res) => res.send({ message: "OK" }));
+router.get("/health", contactLimiter, (req, res) => res.send({ message: "OK" }));
 router.post("/contact", contactLimiter, SendEmail);
 router.get("/blog/Posts", GetPosts);
 router.post("/blog/CreatePost", upload.single("file"), CreatePost);
 router.post("/blog/RemovePost", getPost, RemovePost);
 router.post("/blog/EditPost", getPost, UpdatePost);
+router.post("/Auth/Login", contactLimiter, Login);
+router.post("/Auth/Register", Register);
 
 export { router as Router };
