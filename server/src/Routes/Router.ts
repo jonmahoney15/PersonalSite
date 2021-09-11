@@ -8,8 +8,8 @@ import {
   RemovePost,
   UpdatePost,
 } from "../Blog/BlogController";
-import { Register, Login } from "../Auth/AuthController";
-import { getPost } from "../Middleware";
+import { Register, Login, generateToken } from "../Auth/AuthController";
+import { getPost, auth, verifyAdmin } from "../Middleware";
 
 const contactLimiter = rateLimit({
   max: 5,
@@ -30,13 +30,14 @@ const upload = multer({ storage: storage });
 
 const router = Router();
 
-router.get("/health", contactLimiter, (req, res) => res.send({ message: "OK" }));
-router.post("/contact", contactLimiter, SendEmail);
-router.get("/blog/Posts", GetPosts);
-router.post("/blog/CreatePost", upload.single("file"), CreatePost);
-router.post("/blog/RemovePost", getPost, RemovePost);
-router.post("/blog/EditPost", getPost, UpdatePost);
-router.post("/Auth/Login", contactLimiter, Login);
-router.post("/Auth/Register", Register);
+router.get("/health", auth, verifyAdmin, (req, res) => res.send({ message: "OK" }));
+router.post("/contact", auth, contactLimiter, SendEmail);
+router.get("/blog/Posts", auth, GetPosts);
+router.post("/blog/CreatePost", auth, verifyAdmin, upload.single("file"), CreatePost);
+router.post("/blog/RemovePost", auth, verifyAdmin, getPost, RemovePost);
+router.post("/blog/EditPost", auth, verifyAdmin, getPost, UpdatePost);
+router.post("/Auth/Login", auth, contactLimiter, Login);
+router.post("/Auth/Register", auth, verifyAdmin, Register);
+router.get("/Auth/token", generateToken);
 
 export { router as Router };

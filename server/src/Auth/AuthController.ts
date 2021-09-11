@@ -5,6 +5,7 @@ import { user } from '../enums/user';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
 export const Register = async (req: Request, res: Response) => {
   try {
     console.log("in register");
@@ -43,16 +44,23 @@ export const Login = async (req: Request, res: Response) => {
             return res.json({"Status":"Failure","Details": "Email or password incorrect"});
         }
 
-        res.status(200).json(
-          { message: "Logged in successfully",
+        //@ts-ignore
+        const token = jwt.sign({ user: user.ADMIN }, process.env.JWT_SECRET);
+  
+        res.status(200).json({
+          token,
+          content: { 
+            message: "Logged in successfully",
             email: email                    
-          }); 
+          }
+        }); 
     } catch(error) {
         res.status(500).json({ message: error.message })
     }
 }
 
 export const generateToken = async (req: Request, res: Response) => {
+  //@ts-ignore
   const token = jwt.sign({ user: user.GUEST }, process.env.JWT_SECRET);
   
   res.status(200).json({
@@ -60,5 +68,5 @@ export const generateToken = async (req: Request, res: Response) => {
     user: {
       status:"Guest user"
     }
-  }
+  })
 }
