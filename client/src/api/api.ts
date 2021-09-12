@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_BASE_URL;
-
 const api = axios.create({
-  baseURL: ""
+  baseURL: process.env.REACT_APP_BASE_URL
 });
+
+let token: string | null =  localStorage.getItem('auth-token');
+
+if (token) {
+     api.defaults.headers.common['x-auth-token'] = token;
+} else {
+     api.defaults.headers.common['x-auth-token'] = null;
+}
 
 export default api;

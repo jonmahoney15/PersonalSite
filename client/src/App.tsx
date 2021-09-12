@@ -11,7 +11,7 @@ import Contact from './components/Contactpage/Contact';
 import Adminpage from './components/Admin/Adminpage';
 import Navbar from './components/Navbar';
 import { useEffect, useState } from 'react';
-
+import api from './api/api';
 interface IImage {
   icon: string;
   altText: string;
@@ -36,6 +36,16 @@ const App = () => {
   }
 
   useEffect(()=>{ 
+    const getToken = async () => {
+      let response = await api.get('/Auth/token')
+      localStorage.setItem("auth-token", response.data.token); 
+    }
+
+    if (!localStorage.getItem('auth-token'))
+    {
+      getToken();
+    }
+
     getIcon()
   },[]);
 

@@ -13,23 +13,26 @@ interface IPost {
 const Blog = () => {
   const [postData, setPosts] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-        const getPosts = async () => {
-            try {
-                let response = await api.get('/blog/Posts')
-                let data = response.data;
-                if( data.items && data.items.length > 0 ){
-                    let newPosts: IPost[] = data.items.map((e: IPost) => e);
-                    setPosts(newPosts); 
-                }
-              setLoading(false);
-            } catch(error) {
-              console.log(error);
-              setLoading(false);
-            }
+  useEffect(() => { 
+    const getPosts = async () => {
+        try {
+          let response = await api.get('/blog/Posts'); 
+          let data = response.data;
+          
+          if( data.items && data.items.length > 0 ){
+              let newPosts: IPost[] = data.items.map((e: IPost) => e);
+              setPosts(newPosts); 
+          }
+
+          setLoading(false);
+        } catch(error) {
+          console.log(error);
+          setLoading(false);
         }
-        setLoading(true);
-        getPosts();
+    } 
+
+    setLoading(true);
+    getPosts();
   }, []);
 
   return(
