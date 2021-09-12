@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL
 });
 
-let token: string | null =  localStorage.getItem('auth-token');
+let token: string | null =  sessionStorage.getItem('auth-token');
 
 if (token) {
      api.defaults.headers.common['x-auth-token'] = token;

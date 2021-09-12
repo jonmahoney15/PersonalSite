@@ -38,10 +38,10 @@ const App = () => {
   useEffect(()=>{ 
     const getToken = async () => {
       let response = await api.get('/Auth/token')
-      localStorage.setItem("auth-token", response.data.token); 
+      sessionStorage.setItem("auth-token", response.data.token); 
     }
 
-    if (!localStorage.getItem('auth-token'))
+    if (!sessionStorage.getItem('auth-token'))
     {
       getToken();
     }
