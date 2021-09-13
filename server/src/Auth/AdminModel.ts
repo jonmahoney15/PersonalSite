@@ -6,7 +6,6 @@ export interface IAdmin extends Document {
   FirstName: string;
   LastName: string;
   Email: string;
-  PhoneNumber: string;
   HashPassword: string;
   Date: Date;
 } 
@@ -23,11 +22,7 @@ const AdminSchema: Schema = new Schema({
   Email: {
     type: String,
     required: true
-  },
-  PhoneNumber: {
-    type: String,
-    required: true
-  },
+  }, 
   HashPassword: {
     type: String,
     required: true

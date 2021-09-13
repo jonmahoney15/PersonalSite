@@ -8,50 +8,51 @@ dotenv.config();
 
 export const Register = async (req: Request, res: Response) => {
   try {
-    console.log("in register");
     let requestedAdmin: IAdmin = req.body;
     let email = requestedAdmin.Email;
     const exists = await Admin.findOne({Email: email});
     if (exists) {
-      res.status(400).json({message: "Admin already exists"});
+      res.status(400).json({Status: "Failure", message: "Admin already exists"});
     }
 
     const newAdmin = new Admin({
       FirstName: requestedAdmin.FirstName,
       LastName: requestedAdmin.LastName,
       Email: requestedAdmin.Email,
-      PhoneNumber: requestedAdmin.PhoneNumber,
       HashPassword: requestedAdmin.HashPassword
     });
 
     await newAdmin.save();
 
-    res.status(200).json({message: "New admin added!"});
+    res.status(200).json({Status: "Success", message: "New admin added!"});
   } catch (error) {
-    res.status(500).json({message: error.message})
+    res.status(500).json({Status: "Error", message: error.message});
   } 
 }
 
 export const Login = async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const loginAttempt: IAdmin = req.body;
         let email = loginAttempt.Email;
-        const user = await Admin.findOne({ email });
+        const userLogin = await Admin.findOne({ email });
+        console.log(userLogin);
         let password = loginAttempt.HashPassword;
-        const isMatch = user?.comparePassword(password);
+        const isMatch = userLogin?.comparePassword(password);
         
-        if (!user || !isMatch) {
-            return res.json({"Status":"Failure","Details": "Email or password incorrect"});
+        if (!userLogin || !isMatch) {
+            return res.status(401).json({Status:"Denied", message: "Email or password incorrect"});
         }
 
         //@ts-ignore
-        const token = jwt.sign({ user: user.ADMIN }, process.env.JWT_SECRET);
-  
+        const token = jwt.sign({ user: user.ADMIN  }, process.env.JWT_SECRET);
+
         res.status(200).json({
           token,
           content: { 
             message: "Logged in successfully",
-            email: email                    
+            user: email,
+            userStatus: process.env.ADMIN_STATUS
           }
         }); 
     } catch(error) {
@@ -65,8 +66,6 @@ export const generateToken = async (req: Request, res: Response) => {
   
   res.status(200).json({
     token,
-    user: {
-      status:"Guest user"
-    }
+    message: "New Token"
   })
 }

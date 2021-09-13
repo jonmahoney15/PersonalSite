@@ -4,7 +4,7 @@ dotenv.config();
 
 import  jwt from "jsonwebtoken";
 import { Post } from "./Blog/BlogModels";
-import { user } from "./enums/user";
+import * as User from "./enums/user";
 
 export const getPost = async (
   req: Request,
@@ -15,13 +15,12 @@ export const getPost = async (
   try {
     post = await Post.findById(req.body.id);
     if (post == null) {
-      return res.status(404).json({ message: "Cannot find User" });
+      return res.status(404).json({ Status: "Failure", message: "Cannot find User" });
     }
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return res.status(500).json({ Status: "Error", message: err.message });
   }
-  //@ts-ignore
-  res.post = post;
+
   next();
 };
 
@@ -31,7 +30,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
     
     if(!token)
     {
-      return res.status(401).json({msg: "No authentication token, access denied"});
+      return res.status(401).json({ Status: "Denied", message: "No authentication token, access denied" });
     }
     
     //@ts-ignore
@@ -39,12 +38,12 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
     
     if(!verified)
     {
-      return res.status(401).json({msg: "Token verification failed, authorization denied"});
+      return res.status(401).json({ Status: "Denied", message: "Token verification failed, authorization denied" });
     }
     
     next();
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ Status: "Error", message: "Error: "+ err.message });
   }
 }
 
@@ -59,11 +58,12 @@ export const verifyAdmin = async (req: Request, res: Response, next: NextFunctio
     
     //@ts-ignore
     const user = verified.user;
-    
-    if (user === user.ADMIN) return res.status(401).json({Status: "Denied", message: "User doesn't have Admin access"});
+    console.log(user);
+    console.log(User.user.GUEST);
+    if (user === User.user.GUEST) return res.status(401).json({Status: "Denied", message: "User doesn't have Admin access"});
       
     next();
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({Status: "Error", message: err.message });
   }
 }

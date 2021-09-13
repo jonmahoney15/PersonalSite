@@ -28,7 +28,7 @@ const Navbar = (props: IImage) => {
                             <a href="/" className="block px-3 py-3 text-2xl text-white border-b-2 border-none rounded md:inline-block hover:bg-purple-500">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a href="/About" className="block px-3 py-3 text-2xl text-white border-b-2 border-none rounded md:inline-block hover:bg-purple-500">About</a>
+                            <a href="/Blog" className="block px-3 py-3 text-2xl text-white border-b-2 border-none rounded md:inline-block hover:bg-purple-500">Blog</a>
                         </li>
                         <li className="nav-item">
                             <a href="/Contact" className="block px-3 py-3 text-2xl text-white border-b-2 border-none rounded md:inline-block hover:bg-purple-500">Contact</a>

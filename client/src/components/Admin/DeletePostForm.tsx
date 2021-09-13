@@ -1,5 +1,5 @@
 import api from '../../api/api';
-import {useState} from 'react';
+import { useState } from 'react';
 
 interface IDeletePostProps {
     id: string;
@@ -10,7 +10,7 @@ const DeletePostForm = (props: IDeletePostProps) => {
     const [res, setRemoveResponse] = useState("");
     const handleSubmit = () => {
         api.post("/blog/RemovePost", {"id": props.id})
-            .then(() => setRemoveResponse(`Removed ${props.title}`))
+            .then((response) => setRemoveResponse(response.data.message))
             .catch(error => console.log(error));
     }
 

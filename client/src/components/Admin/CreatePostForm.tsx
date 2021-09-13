@@ -40,9 +40,7 @@ const CreatePostForm = () => {
     }
 
     const imageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target && e.target.files && e.target.files[0])
-        {
-            console.log("In upload "+ e.target.files[0] )
+        if (e.target && e.target.files && e.target.files[0]) {
             setFormData({
                 ...formData,
                 Image: e.target.files[0]

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import './styles/output.css';
 import Aboutpage from './components/Aboutpage/Aboutpage';
 import {
@@ -10,8 +11,11 @@ import Postpage from './components/Blogpage/Postpage';
 import Contact from './components/Contactpage/Contact';
 import Adminpage from './components/Admin/Adminpage';
 import Navbar from './components/Navbar';
+import UserContext from './context/userContext';
 import { useEffect, useState } from 'react';
 import api from './api/api';
+import Loginpage from './components/Admin/Loginpage';
+
 interface IImage {
   icon: string;
   altText: string;
@@ -20,8 +24,12 @@ interface IImage {
 const App = () => {
 
   const initialImage: IImage = { icon:"", altText:"" };
-  const [icon, setIcon] = useState<IImage>(initialImage);
-  
+  const [icon, setIcon] = useState<IImage>(initialImage); 
+  const [ userData, setUserData] = useState({
+    token: undefined,
+    user: undefined
+  });
+
   const getIcon = () => {
     fetch('images.json' ,{
       headers : { 
@@ -35,32 +43,35 @@ const App = () => {
     });
   }
 
-  useEffect(()=>{ 
-    const getToken = async () => {
-      let response = await api.get('/Auth/token')
-      sessionStorage.setItem("auth-token", response.data.token); 
-    }
+  const getToken = async () => {
+    let response = await api.get('/Auth/token');
+    sessionStorage.setItem("auth-token", response.data.token); 
+  }
 
+  useEffect(()=>{   
     if (!sessionStorage.getItem('auth-token'))
     {
       getToken();
     }
 
-    getIcon()
+    getIcon();
   },[]);
 
   return (
     <Router>
       <div>
-        <Navbar icon={icon.icon} altText={icon.altText} />
-        <Switch>
-          <Route exact path="/" component={Blog}/>
-          <Route path="/Home" component={Blog}/>
-          <Route path="/About" component={Aboutpage}/>
-          <Route path="/Contact" component={Contact}/>
-          <Route path="/Admin" component={Adminpage}/>
-          <Route path="/Post/:title" component={Postpage}/>
-        </Switch>
+        <UserContext.Provider value={{ userData , setUserData }}>
+          <Navbar icon={icon.icon} altText={icon.altText} />
+          <Switch>
+            <Route exact path="/" component={Aboutpage}/>
+            <Route path="/Home" component={Aboutpage}/>
+            <Route path="/Blog" component={Blog}/>
+            <Route path="/Contact" component={Contact}/>
+            <Route path="/Admin" component={Adminpage}/>
+            <Route path="/Login" component={Loginpage}/>
+            <Route path="/Post/:title" component={Postpage}/>
+          </Switch>
+        </UserContext.Provider>
       </div>
     </Router>
   );
