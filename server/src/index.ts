@@ -1,5 +1,4 @@
 import { createHttpTerminator } from "http-terminator";
-
 import { app } from "./app";
 import { config } from "./config";
 import { handle } from "./util/error";

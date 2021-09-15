@@ -40,7 +40,8 @@ const Adminpage = () => {
     const history = useHistory();
     
     useEffect(()=> {
-        if ((userData && userData.user && userData.user !== process.env.REACT_APP_LOGIN_STATUS) &&
+        if (((!userData) || (!userData.user) ||
+            (userData && userData.user && userData.user !== process.env.REACT_APP_LOGIN_STATUS)) &&
             (sessionStorage.getItem('status') !== process.env.REACT_APP_LOGIN_STATUS))
         {
             history.push('/Login')

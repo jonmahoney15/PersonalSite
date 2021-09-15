@@ -6,7 +6,6 @@ interface IPost {
     Title: string;
     Description: string;
     Image: any;
-    MarkDown: boolean;
 }
 
 interface IEditProp {
@@ -17,18 +16,19 @@ const EditPostForm = (props: IEditProp) => {
     const [formData, setFormData] = useState<IPost>(props.Post);
     const [response, setPostResponse] = useState("");
 
-    const handleSubmit = (event: React.SyntheticEvent) => {
+    const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
+        
         const update = {
             "id": formData._id,
             "post": {
                 _id: formData._id,
                 Title: formData.Title,
                 Description: formData.Description,
-                MarkDown: formData.MarkDown
             }
-        } 
-        api.post('/blog/EditPost', update)
+        }
+
+        await api.post('/blog/EditPost', update)
             .then(response => setPostResponse(response.data.message))
             .catch(error => console.log(error));
     }
@@ -70,10 +70,6 @@ const EditPostForm = (props: IEditProp) => {
                 <label className="flex flex-col m-5">
                     Image:
                     <img className="w-full align-middle max-h-52" src={`data:image/png;base64,${objImg}`} alt={formData.Title}></img>                                       
-                </label>
-                <label className="flex flex-row m-5 align-middle">
-                    Is MarkDown?
-                    <input type="checkbox" value={formData.MarkDown.valueOf().toString()} name="MarkDown" onChange={handleChange}/>
                 </label>
                 <input 
                     type="submit" 

@@ -86,7 +86,7 @@ const RegisterForm = () => {
                             type='email'
                             className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
                             id='email'
-                            name='email'
+                            name='Email'
                             placeholder='Your Email'
                             required
                         />
@@ -98,7 +98,7 @@ const RegisterForm = () => {
                             type='password'
                             className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
                             id='password'
-                            name='password'
+                            name='Password'
                             placeholder='Your Password'
                             required
                         />

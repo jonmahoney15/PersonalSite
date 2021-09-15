@@ -1,20 +1,19 @@
-//@ts-nocheck
 import mailer from "nodemailer";
 import { IEmail } from "./ContactTypes";
 import { logger } from "../util/logger";
-
+import { config } from '../config';
 const transporter = mailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.FROM_EMAIL,
-    pass: process.env.PASSWORD,
+    user: config.from_email,
+    pass: config.password,
   },
 });
 
 export const sendMail = (req: IEmail) => {
   const mailOptions = {
-    from: "donotreplyjonsdevbox@gmail.com",
-    to: "donotreplyjonsdevbox@gmail.com",
+    from: config.from_email,
+    to: config.to_email,
     subject: req.Title,
     text:
       "Requestor: " +
@@ -33,7 +32,6 @@ export const sendMail = (req: IEmail) => {
       logger.info(`Error in Contact Service: ${error}`);
     } else {
       logger.info(`Email sent: ${info.response}`);
-      info.end("sent");
     }
   });
 };

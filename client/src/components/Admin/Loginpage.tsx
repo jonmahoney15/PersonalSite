@@ -18,7 +18,7 @@ const Loginpage = () => {
     //@ts-ignore
     const { setUserData } = useContext(userContext);
     const [loginData, setLoginData] = useState<ILogin>(InitialLogin)
-
+    const [res, setRes] = useState("");
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData(loginData => ({
         ...loginData,
@@ -34,11 +34,11 @@ const Loginpage = () => {
             HashPassword: loginData.password
         }
 
-        try {
-            const loginResponse = await api.post('/Auth/Login', login);
+        await api.post('/Auth/Login', login).then(loginResponse => {
             const userStatus = loginResponse?.data?.content?.userStatus; 
             const email = loginResponse?.data?.content?.user;
-            
+            console.log(loginResponse.data);
+            setRes(loginResponse.data.message); 
             setUserData({
                 email: email,
                 user: userStatus,
@@ -46,13 +46,15 @@ const Loginpage = () => {
 
             sessionStorage.setItem('auth-token', loginResponse.data.token);
             sessionStorage.setItem('status', userStatus);
-            setUserData(InitialLogin);
-
-            history.push('/admin');
-            
-        } catch(error) {
+            setLoginData(InitialLogin);
+            if (userStatus === process.env.REACT_APP_LOGIN_STATUS) {
+                history.push('/admin');
+            }
+        }).catch(error => {
             console.log(error);
-        }
+            setRes("There was an error logging in");
+            setLoginData(InitialLogin);
+        });
     }        
 
     return (
@@ -96,6 +98,7 @@ const Loginpage = () => {
                             Login
                         </button>
                     </div>
+                    <p className="text-red-800">{res}</p>
                 </form>
             </div>
         </div>

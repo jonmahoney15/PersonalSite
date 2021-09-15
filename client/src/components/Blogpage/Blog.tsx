@@ -39,7 +39,7 @@ const Blog = () => {
 
 
   return(
-      <div className="flex flex-col items-center h-screen text-5xl bg-cover bg-gradient-to-b from-black to-purple-500 ">
+      <div className="flex flex-col items-center h-screen bg-cover bg-gradient-to-b from-black to-purple-500 ">
         { loading ?
           <div className="flex flex-col">
               <SkeltonLoader/>

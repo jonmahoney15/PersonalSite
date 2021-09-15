@@ -1,16 +1,14 @@
 import Mongoose from "mongoose";
-import dotenv from "dotenv";
+import { config } from "../config";
 
 let database: Mongoose.Connection;
-
-dotenv.config();
 
 export const connect = () => {
   if (database) {
     return;
   }
 
-  Mongoose.connect(`${process.env.MONGO_DB_URI}`);
+  Mongoose.connect(`${config.mongoDbUri}`);
 
   database = Mongoose.connection;
 
@@ -24,8 +22,10 @@ export const connect = () => {
 };
 
 export const disconnect = () => {
+  
   if (!database) {
     return;
   }
+
   Mongoose.disconnect();
 };

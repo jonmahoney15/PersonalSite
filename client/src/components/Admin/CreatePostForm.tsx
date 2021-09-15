@@ -5,7 +5,6 @@ interface IPost {
     Title: string;
     Description: string;
     Image: File;
-    MarkDown: boolean;
 }
 
 const CreatePostForm = () => {
@@ -13,7 +12,7 @@ const CreatePostForm = () => {
         Title: "",
         Description: "",
         Image: new File( [],  ""),
-        MarkDown: false
+
     }
 
     const [formData, setFormData] = useState<IPost>(InitialPost);
@@ -82,11 +81,7 @@ const CreatePostForm = () => {
                 <label className="flex flex-col m-5">
                     Image:
                     <input type="file" name="Image" id="file" accept=".jpeg, .png, .jpg" required onChange={imageUpload}/>
-                </label>
-                <label className="flex flex-row m-5 align-middle">
-                    Is MarkDown?
-                    <input type="checkbox" name="MarkDown" onChange={handleChange}/>
-                </label>
+                </label> 
                 <input 
                     type="submit" 
                     value="Create Post!" 
