@@ -20,6 +20,7 @@ interface IPosts {
 const Adminpage = () => {
     const getPosts = async () => {
         try {
+            api.defaults.headers.common['x-auth-token'] = sessionStorage.getItem('auth-token');
             let response = await api.get('/blog/Posts')
             let data = response.data;
             if( data.items && data.items.length > 0 ){

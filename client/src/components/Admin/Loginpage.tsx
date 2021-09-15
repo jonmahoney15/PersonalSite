@@ -2,7 +2,7 @@ import {SyntheticEvent, useState, useContext} from 'react';
 import {useHistory} from 'react-router';
 import userContext from '../../context/userContext';
 import api from '../../api/api';
-
+import useToken from '../Common/useToken';
 interface ILogin {
     email: string;
     password: string;
@@ -13,12 +13,15 @@ const Loginpage = () => {
         email: "",
         password: ""
     }
+
     const history = useHistory();
     
     //@ts-ignore
     const { setUserData } = useContext(userContext);
     const [loginData, setLoginData] = useState<ILogin>(InitialLogin)
     const [res, setRes] = useState("");
+    const { setToken } = useToken();
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData(loginData => ({
         ...loginData,
@@ -35,21 +38,23 @@ const Loginpage = () => {
         }
 
         await api.post('/Auth/Login', login).then(loginResponse => {
-            const userStatus = loginResponse?.data?.content?.userStatus; 
+            const userStatus = loginResponse?.data?.content?.userStatus;
             const email = loginResponse?.data?.content?.user;
-            console.log(loginResponse.data);
+            
             setRes(loginResponse.data.message); 
             setUserData({
                 email: email,
                 user: userStatus,
             });
 
-            sessionStorage.setItem('auth-token', loginResponse.data.token);
+            setToken(loginResponse.data.token);
             sessionStorage.setItem('status', userStatus);
             setLoginData(InitialLogin);
+
             if (userStatus === process.env.REACT_APP_LOGIN_STATUS) {
                 history.push('/admin');
             }
+
         }).catch(error => {
             console.log(error);
             setRes("There was an error logging in");

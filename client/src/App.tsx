@@ -15,6 +15,7 @@ import UserContext from './context/userContext';
 import { useEffect, useState } from 'react';
 import api from './api/api';
 import Loginpage from './components/Admin/Loginpage';
+import useToken from './components/Common/useToken';
 
 interface IImage {
   icon: string;
@@ -29,6 +30,7 @@ const App = () => {
     token: undefined,
     user: undefined
   });
+   
 
   const getIcon = () => {
     fetch('images.json' ,{
@@ -43,18 +45,23 @@ const App = () => {
     });
   }
 
-  const getToken = async () => {
-    let response = await api.get('/Auth/token');
-    sessionStorage.setItem("auth-token", response.data.token); 
-  }
+  
+  const { token, setToken } = useToken();
 
   useEffect(()=>{   
-    if (!sessionStorage.getItem('auth-token'))
+    
+    const getToken = async () => {
+      let response = await api.get('/Auth/token');
+      setToken(response.data.token); 
+    }
+
+    if (!token)
     {
       getToken();
     }
 
     getIcon();
+  //eslint-disable-next-line
   },[]);
 
   return (

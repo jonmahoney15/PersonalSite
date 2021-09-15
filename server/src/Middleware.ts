@@ -76,6 +76,12 @@ export const rateLimiter = rateLimit({
   message: "Too many attempts!",
 });
 
+export const largeLimiter = rateLimit({
+  max: 50,
+  windowMs: 24 * 60 * 60 * 1000, //one day
+  message: "Too many attempts!",
+});
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads");
