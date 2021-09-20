@@ -46,7 +46,7 @@ services:
     networks:
       - personalsite-app
     volumes:
-      - ./PersonalSite_BlogService/:/usr/src/app
+      ##- ./PersonalSite_BlogService/:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
       - mongo
