@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+  labels:
+    app: auth
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 10
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: gcr.io/jonsdevbox/ps_auth_api:dev-c652084b-1659702349
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "1"
+            memory: 100Mi
+          requests:
+            cpu: 250m
+            memory: 20Mi
+        volumeMounts:
+          - mountPath: /usr/src/.env
+            subPath: .env
+            name: env
+            readOnly: true
+      volumes:
+        - name: env
+          configMap:
+            name: personalsite-auth-env
+            items:
+              - key: .env
+                path: .env
+ 
