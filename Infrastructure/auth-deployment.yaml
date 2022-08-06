@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: gcr.io/jonsdevbox/ps_auth_api:dev-c652084b-1659702349
+        image: gcr.io/jonsdevbox/ps_auth_api:1.0.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
