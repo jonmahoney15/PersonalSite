@@ -1,0 +1,15 @@
+[submodule "PersonalSite_AuthService"]
+	path = PersonalSite_AuthService
+	url = git@github.com:jonmahoney15/PersonalSite_AuthService.git
+[submodule "PersonalSite_Client"]
+	path = PersonalSite_Client
+	url = git@github.com:jonmahoney15/PersonalSite_Client.git
+[submodule "PersonalSite_BlogService"]
+	path = PersonalSite_BlogService
+	url = git@github.com:jonmahoney15/PersonalSite_BlogService.git
+[submodule "PersonalSite_ContactService"]
+	path = PersonalSite_ContactService
+	url = git@github.com:jonmahoney15/PersonalSite_ContactService.git
+[submodule "PersonalSite_Gateway"]
+	path = PersonalSite_Gateway
+	url = git@github.com:jonmahoney15/PersonalSite_Gateway.git

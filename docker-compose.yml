@@ -1,0 +1,73 @@
+version: "3"
+services: 
+  gateway:
+    image: personal-site-api-gateway-dev
+    env_file: ./PersonalSite_Gateway/.env
+    ports:
+      - "5000:5000"
+    networks:
+      - personalsite-app
+    volumes:
+      - ./PersonalSite_Gateway/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - auth
+      - blog
+      - contact
+  auth:
+    image: personal-site-auth-api-dev
+    env_file: ./PersonalSite_AuthService/.env
+    ports:
+      - "8000:8000"
+    networks:
+      - personalsite-app
+    volumes:
+      - ./PersonalSite_AuthService/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+  contact:
+    image: personal-site-contact-api-dev
+    env_file: ./PersonalSite_ContactService/.env
+    ports:
+      - "8001:8001"
+    networks:
+      - personalsite-app
+    volumes:
+      - ./PersonalSite_ContactService/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+  blog:
+    image: personal-site-blog-api-dev
+    env_file: ./PersonalSite_BlogService/.env
+    ports:
+      - "8002:8002"
+    networks:
+      - personalsite-app
+    volumes:
+      ##- ./PersonalSite_BlogService/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+  mongo:
+    image : mongo
+    container_name: mongo
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - personalsite-app
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    logging: 
+      driver: none
+networks:
+  personalsite-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
