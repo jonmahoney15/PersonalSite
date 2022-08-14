@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: gcr.io/jonsdevbox/ps_auth_api:1.0.2 # {"$imagepolicy": "flux-system:auth-policy"}
+        image: gcr.io/jonsdevbox/ps_auth_api:1.4.2 # {"$imagepolicy": "flux-system:auth-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -40,14 +40,14 @@ spec:
             cpu: 250m
             memory: 20Mi
         volumeMounts:
-          - mountPath: /usr/src/.env
-            subPath: .env
-            name: env
-            readOnly: true
+        - mountPath: /usr/src/.env
+          subPath: .env
+          name: env
+          readOnly: true
       volumes:
-        - name: env
-          configMap:
-            name: personalsite-auth-env
-            items:
-              - key: .env
-                path: .env
+      - name: env
+        configMap:
+          name: personalsite-auth-env
+          items:
+          - key: .env
+            path: .env
