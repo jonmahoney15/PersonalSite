@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+  namespace: ps-blog-api
+  labels:
+    name: blog-service
+spec:
+  selector:
+    app: blog
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
