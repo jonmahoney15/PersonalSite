@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: gcr.io/jonsdevbox/ps_blog_api:1.3.0 # {"$imagepolicy": "flux-system:blog-policy"}
+        image: gcr.io/jonsdevbox/ps_blog_api:1.4.1 # {"$imagepolicy": "flux-system:blog-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
