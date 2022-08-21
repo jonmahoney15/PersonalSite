@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: contact
-        image: gcr.io/jonsdevbox/ps_auth_api:1.4.2 # {"$imagepolicy": "flux-system:auth-policy"}
+        image: gcr.io/jonsdevbox/ps_contact_api:1.1.1 # {"$imagepolicy": "flux-system:contact-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
