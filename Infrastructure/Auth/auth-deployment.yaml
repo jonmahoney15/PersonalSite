@@ -27,11 +27,13 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
+          failureThreshold: 5
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 5
-          periodSeconds: 10
+          periodSeconds: 60
+          timeoutSeconds: 2
         resources:
           limits:
             cpu: "1"
