@@ -7656,7 +7656,7 @@ spec:
         - mountPath: /tmp
           name: temp
       nodeSelector:
-        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
       securityContext:
         fsGroup: 1337
       serviceAccountName: image-automation-controller
