@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-deployment
+  namespace: ps-gateway-api
+  labels:
+    app: gateway
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 10
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: gcr.io/jonsdevbox/ps_gateway_api:1.0.2 # {"$imagepolicy": "flux-system:gateway-policy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 60
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: "1"
+            memory: 100Mi
+          requests:
+            cpu: 250m
+            memory: 20Mi
+        volumeMounts:
+        - mountPath: /usr/src/.env
+          subPath: .env
+          name: env
+          readOnly: true
+      volumes:
+      - name: env
+        configMap:
+          name: personalsite-gateway-env
+          items:
+          - key: .env
+            path: .env
