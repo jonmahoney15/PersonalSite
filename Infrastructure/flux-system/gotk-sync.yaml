@@ -11,7 +11,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: https://github.com/jonmahoney15/PersonalSite.git
+  url: ssh://git@github.com/jonmahoney15/PersonalSite
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
