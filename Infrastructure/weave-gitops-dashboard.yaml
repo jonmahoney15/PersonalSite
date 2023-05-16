@@ -4,7 +4,7 @@ kind: HelmRepository
 metadata:
   annotations:
     metadata.weave.works/description: This is the source location for the Weave GitOps
-      Dashboard's helm chart.
+      Dashboard's helm chart for Jons Personalsite.
   labels:
     app.kubernetes.io/component: ui
     app.kubernetes.io/created-by: weave-gitops-cli
